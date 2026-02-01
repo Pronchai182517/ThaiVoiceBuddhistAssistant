@@ -1,0 +1,202 @@
+/* Thai Voice AI Assistant - Custom Styles */
+/* Optimized for Elderly Users & All Devices */
+
+/* Base font size - larger for elderly users */
+:root {
+  --font-size-base: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 28px;
+  --font-size-3xl: 32px;
+  --button-min-size: 56px;
+  --touch-target: 48px;
+}
+
+html {
+  font-size: var(--font-size-base);
+}
+
+/* High contrast for better readability */
+body {
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+/* Larger text for all elements */
+p,
+span,
+div {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: var(--font-size-3xl) !important;
+}
+
+h2 {
+  font-size: var(--font-size-2xl) !important;
+}
+
+/* Smooth scrollbar styling */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 10px;
+  /* Larger scrollbar for easier grabbing */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #ecfdf5;
+  border-radius: 5px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #6ee7b7;
+  border-radius: 5px;
+  min-height: 50px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #34d399;
+}
+
+/* Animation utilities */
+@keyframes bounce-subtle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 0.6s ease-in-out infinite;
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Ensure smooth animations & readability */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus states for accessibility */
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #059669;
+  outline-offset: 2px;
+}
+
+/* Large touch targets */
+button {
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Extra Large Desktop (1536px+) */
+@media (min-width: 1536px) {
+  :root {
+    --font-size-base: 20px;
+  }
+}
+
+/* Desktop (1024px - 1535px) */
+@media (min-width: 1024px) and (max-width: 1535px) {
+  :root {
+    --font-size-base: 18px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --font-size-base: 18px;
+    --button-min-size: 60px;
+  }
+
+  .main-container {
+    padding: 1.5rem;
+  }
+}
+
+/* Mobile Large (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  :root {
+    --font-size-base: 17px;
+    --button-min-size: 56px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Mobile Small (< 480px) */
+@media (max-width: 479px) {
+  :root {
+    --font-size-base: 16px;
+    --button-min-size: 52px;
+  }
+
+  body {
+    overflow-x: hidden;
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl) !important;
+  }
+}
+
+/* ===== ELDERLY USER ENHANCEMENTS ===== */
+
+/* High contrast text */
+.text-high-contrast {
+  color: #064e3b !important;
+  font-weight: 500;
+}
+
+/* Large click areas */
+.elderly-button {
+  min-width: 64px;
+  min-height: 64px;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+}
+
+/* Clear visual feedback */
+button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+}

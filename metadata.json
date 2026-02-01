@@ -1,0 +1,8 @@
+{
+  "name": "Thai Voice AI Assistant V 1.0",
+  "description": "แอปพลิเคชันสนทนาด้วยเสียงภาษาไทยแบบเรียลไทม์ ขับเคลื่อนโดย Gemini 2.5 Native Audio API ให้คุณพูดคุยโต้ตอบกับ AI ได้อย่างเป็นธรรมชาติ Version 1.0",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
