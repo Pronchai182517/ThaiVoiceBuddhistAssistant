@@ -10,7 +10,7 @@ build/
 
 # Environment files
 .env
-.env.local
+# .env.local  # Keep this for API key
 .env.*.local
 
 # IDE

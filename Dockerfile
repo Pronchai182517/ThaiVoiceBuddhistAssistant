@@ -12,6 +12,9 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Copy .env.local if exists (for API key)
+COPY .env.local .env.local
+
 # Build the application
 RUN npm run build
 

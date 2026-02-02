@@ -7,18 +7,22 @@ import Visualizer from './components/Visualizer';
 import FileUpload from './components/FileUpload';
 import CameraPreview from './components/CameraPreview';
 
-const SYSTEM_INSTRUCTION = `คุณคือผู้ช่วยอัจฉริยะวิเคราะห์ภาพและวัตถุ (Object Detection Assistant) เพศชาย ที่พูดภาษาไทยได้อย่างคล่องแคล่ว
+const SYSTEM_INSTRUCTION = `คุณคือผู้ช่วยอัจฉริยะด้านการศึกษาพระพุทธศาสนาและภาษาบาลี
+โดยมี รศ.เวทย์ บรรณกรกุล อาจารย์ประจำสถาบันการศึกษา มหาวชิราลงกรบาลีเถรวาทราชวิทยาลัย เป็นที่ปรึกษาและต้นแบบความรู้
 
-กฎสำคัญในการสนทนาภาษาไทย:
-- ใช้สรรพนามแทนตัวเองว่า "ผม" เท่านั้น ห้ามใช้ "ฉัน" หรือ "ดิฉัน"
-- ใช้คำลงท้ายว่า "ครับ" เท่านั้น ห้ามใช้ "ค่ะ" หรือ "คะ"
-- พูดด้วยน้ำเสียงสุภาพ เป็นมิตร และมีชีวิตชีวาแบบผู้ชาย
+กฎสำคัญในการสนทนา:
+- ใช้สรรพนามแทนตัวเองว่า "ผม" (กระผม ในบริบทที่คุยกับพระภิกษุ)
+- ใช้คำลงท้ายว่า "ครับ" (ขอรับ ในบริบทที่คุยกับพระภิกษุ)
+- น้ำเสียง: สุภาพ นุ่มนวล เปี่ยมด้วยเมตตาธรรม และมีความเป็นวิชาการ
+- การตอบคำถาม: เน้นความรู้ที่ถูกต้องตามหลักพระไตรปิฎก อรรถกถา และหลักภาษาบาลีไวยากรณ์
 
-หน้าที่หลักของคุณคือ:
-1. วิเคราะห์ภาพจากกล้องที่ผู้ใช้ส่งมาแบบเรียลไทม์
-2. ระบุวัตถุ สิ่งของ หรือข้อความที่ปรากฏในภาพเมื่อผู้ใช้ถามหรือเมื่อเห็นสิ่งที่น่าสนใจ
-3. ให้ข้อมูลรายละเอียดเกี่ยวกับวัตถุนั้นๆ เช่น วิธีใช้, ประวัติ หรือคำแนะนำที่เกี่ยวข้อง
-4. หากเห็นวัตถุไม่ชัดเจน ให้แนะนำผู้ใช้ให้ขยับกล้องหรือจัดแสงให้ดีขึ้นครับ`;
+หน้าที่ของคุณคือ:
+1. ให้ความรู้เกี่ยวกับหลักธรรมทางพระพุทธศาสนา ประวัติศาสดา และพุทธประวัติ
+2. อธิบายไวยากรณ์ภาษาบาลี การแปลบทสวดมนต์ และรากศัพท์ภาษาบาลี
+3. วิเคราะห์ภาพทางศาสนา (ถ้ามี) เช่น พระพุทธรูป คัมภีร์ หรือศาสนสถาน ให้ข้อมูลประวัติและความสำคัญ
+4. หากเป็นการสนทนากับพระภิกษุสงฆ์ ให้ใช้ราชาศัพท์และสมณศักดิ์ที่ถูกต้องเหมาะสม
+5. นำข้อมูลจากสื่อประเภทเอกสาร ภาพ วีดีโอ บทความวิชาการของ รศ.เวทย์ บรรณกรกุล อาจารย์ประจำสถาบันการศึกษา มหาวชิราลงกรบาลีเถรวาทราชวิทยาลัย เป็นที่ปรึกษาและต้นแบบความรู้
+6. ใช้ภาษาไทยเป็นภาษาเริ่มต้นที่สื่อสารกับผู้ใช้ หากมีผู้ใช้สื่อสารกับคุณเป็นภาษาอื่น ให้ใช้เสียงตามภาษาที่ผู้ใช้สื่อสารกับคุณ`;
 
 const VOICE_NAME = 'Orus';
 const FRAME_RATE = 1;
@@ -298,9 +302,9 @@ const App: React.FC = () => {
       <header className="flex items-center justify-between mb-6 flex-shrink-0">
         <div>
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-700 to-teal-600">
-            BAI Buddhist AI
+            พุทธวจนะ AI
           </h1>
-          <p className="text-base md:text-lg text-emerald-600 font-medium">สนทนาผ่านกล้อง</p>
+          <p className="text-base md:text-lg text-emerald-600 font-medium">สนทนาธรรมและภาษาบาลี</p>
         </div>
         <div className="flex items-center gap-3">
           <span className={`w-4 h-4 rounded-full ${status === ConnectionStatus.CONNECTED ? 'bg-green-500 animate-pulse' : status === ConnectionStatus.CONNECTING ? 'bg-emerald-400' : 'bg-emerald-200'}`} />
@@ -313,8 +317,8 @@ const App: React.FC = () => {
           {transcriptions.length === 0 && status !== ConnectionStatus.CONNECTED && (
             <div className="h-full flex flex-col items-center justify-center text-emerald-400 text-center p-8 border-2 border-dashed border-emerald-200 rounded-3xl bg-white/60 backdrop-blur-sm">
               <svg className="w-20 h-20 mb-6 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-              <p className="text-xl md:text-2xl font-semibold mb-2">เริ่มต้นการสนทนา</p>
-              <p className="text-base md:text-lg">กดปุ่มไมค์ด้านล่างเพื่อเริ่มสนทนา</p>
+              <p className="text-xl md:text-2xl font-semibold mb-2">เริ่มต้นสนทนาธรรม</p>
+              <p className="text-base md:text-lg">กดปุ่มไมค์ด้านล่างเพื่อปรึกษาหรือสอบถาม</p>
             </div>
           )}
 
@@ -350,7 +354,7 @@ const App: React.FC = () => {
                 <Visualizer isActive={isUserSpeaking} color="bg-emerald-500" />
               </div>
               <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100/50 shadow-inner">
-                <p className="text-sm md:text-base uppercase text-emerald-700 font-bold mb-3 text-center">AI กำลังตอบ</p>
+                <p className="text-sm md:text-base uppercase text-emerald-700 font-bold mb-3 text-center">ผู้ช่วยกำลังตอบ</p>
                 <Visualizer isActive={isAiSpeaking} color="bg-teal-500" />
               </div>
             </div>
@@ -388,7 +392,7 @@ const App: React.FC = () => {
             </div>
 
             <p className="text-base md:text-lg font-bold text-emerald-900">
-              {status === ConnectionStatus.CONNECTED ? `โหมด ${cameraMode === 'live' ? 'ถ่ายทอดสด' : 'สแกน'} กำลังทำงาน` : 'กดปุ่มไมค์เพื่อเริ่มสนทนา'}
+              {status === ConnectionStatus.CONNECTED ? `โหมด ${cameraMode === 'live' ? 'ถ่ายทอดสด' : 'สแกน'} กำลังทำงาน` : 'กดปุ่มไมค์เพื่อเริ่มสนทนาธรรม'}
             </p>
           </div>
         </div>
